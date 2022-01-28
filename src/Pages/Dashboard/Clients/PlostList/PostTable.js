@@ -9,7 +9,7 @@ const PostTable = (props) => {
 
   const deletePlant = (id) => {
     if (window.confirm('Are you sure to delete this plant?')) {
-      axios.delete(`http://localhost:5000/post/${id}`).then((res) => {
+      axios.delete(`https://murmuring-brushlands-95266.herokuapp.com/post/${id}`).then((res) => {
         if (res) {
           changeData ? setChangeData(false) : setChangeData(true)
         }
@@ -29,12 +29,12 @@ const PostTable = (props) => {
             <img className="h-10 w-10 object-contain" src={blogImageURL} alt={title} />
           </div>
           <div className="ml-4 text-left">
-          <NavLink
-            to={`/purchase/${_id}`}
-          >
-            <div className="text-sm font-medium text-gray-900">{title}</div>
-          </NavLink>
-            
+            <NavLink
+              to={`/purchase/${_id}`}
+            >
+              <div className="text-sm font-medium text-gray-900">{title}</div>
+            </NavLink>
+
             <div className="text-sm text-gray-500">
               {blogContent.slice(0, 30)}...
             </div>

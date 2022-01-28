@@ -9,8 +9,8 @@ const AddPost = () => {
   const { user } = useAuth();
   const onSubmit = (data) => {
     data.postComments = 0
-    data.timestamp=moment(new Date()).format('DD/MM/YYYY, h:mm:ss a');
-    axios.post("http://localhost:5000/post", data).then((res) => {
+    data.timestamp = moment(new Date()).format('DD/MM/YYYY, h:mm:ss a');
+    axios.post("https://murmuring-brushlands-95266.herokuapp.com/post", data).then((res) => {
       alert("Post Added Successfully.");
       reset();
     });

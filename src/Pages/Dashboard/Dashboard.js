@@ -12,7 +12,10 @@ import {
   NavLink, Route, Switch, useHistory, useRouteMatch
 } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import AdminRoute from '../../Private/AdminRoute';
 import ScrollToTop from "../../ScrollToTop/ScrollToTop";
+import AllPosts from "./Admin/AllPosts/AllPosts";
+import MakeAdmin from "./Admin/MakeAdmin/MakeAdmin";
 import AddPost from "./Clients/AddPost/AddPost";
 import PlostList from "./Clients/PlostList/PlostList";
 import "./Dashboard.css";
@@ -23,7 +26,7 @@ const Dashboard = () => {
   const { path, url } = useRouteMatch();
   const { user, admin, logOut } = useAuth();
   const history = useHistory();
-  const ogHome = () => {
+  const goHome = () => {
     history.push("/");
   };
 
@@ -59,7 +62,7 @@ const Dashboard = () => {
               </NavLink>
               <button
                 title="My Orders"
-                onClick={ogHome}
+                onClick={goHome}
                 className="w-full flex my-2 md:px-5 md:pr-20  items-center text-white py-3 rounded-l-lg hover:shadow-md relative hover:text-textPrimary dashboardLink hover:bg-white"
               >
                 <AiFillBackward className="ml-3 text-xl" />{" "}
@@ -72,7 +75,7 @@ const Dashboard = () => {
                 activeClassName="shadow-md relative dashboardLink w-full block py-3 bg-white text-textPrimary"
               >
                 <IoMdAdd className="ml-3 text-xl" />{" "}
-                <span className="ml-0 hidden md:block w-full">Add Plant</span>
+                <span className="ml-0 hidden md:block w-full">Add a Post</span>
               </NavLink>
               <NavLink
                 title="Plants List"
@@ -81,16 +84,7 @@ const Dashboard = () => {
                 activeClassName="shadow-md relative dashboardLink w-full block py-3 bg-white text-textPrimary"
               >
                 <RiPlantLine className="ml-3 text-xl" />{" "}
-                <span className="ml-0 hidden md:block w-full">Plants List</span>
-              </NavLink>
-              <NavLink
-                title="Manage Orders"
-                to={`${url}/manage_orders`}
-                className="w-full flex my-2 md:px-5 md:pr-20  items-center text-white py-3 rounded-l-lg  "
-                activeClassName="shadow-md relative dashboardLink w-full block py-3 bg-white text-textPrimary"
-              >
-                <RiFileList3Line className="ml-3 text-xl" />{" "}
-                <span className="ml-0 hidden md:block w-full">Orders</span>
+                <span className="ml-0 hidden md:block w-full">All Posts</span>
               </NavLink>
               <NavLink
                 title="All Users"
@@ -110,7 +104,7 @@ const Dashboard = () => {
               >
                 <MdOutlineAdminPanelSettings className="ml-3 text-xl" />{" "}
                 <span className="ml-0 hidden md:block w-full">
-                  Add Admin
+                  Add an Admin
                 </span>
               </NavLink>
               <button
@@ -127,23 +121,20 @@ const Dashboard = () => {
               <ScrollToTop />
               <Switch>
                 <Route exact path={path}>
-                  <PlostList />
+                  <AllPosts />
                 </Route>
-                {/* <AdminRoute path={`${path}/add_plant`}>
-                  <AddPlants />
+                <AdminRoute path={`${path}/add_plant`}>
+                  <AddPost />
                 </AdminRoute>
                 <AdminRoute path={`${path}/plants_list`}>
-                  <PlantList />
-                </AdminRoute>
-                <AdminRoute path={`${path}/manage_orders`}>
-                  <OrderList />
+                  <AllPosts />
                 </AdminRoute>
                 <AdminRoute path={`${path}/make_admin`}>
-                  <AddAdmin />
+                  <MakeAdmin />
                 </AdminRoute>
                 <AdminRoute path={`${path}/all_users`}>
-                  <AllUserList />
-                </AdminRoute> */}
+                  {/* <AllUserList /> */}
+                </AdminRoute>
               </Switch>
             </div>
           </div>
@@ -170,7 +161,7 @@ const Dashboard = () => {
 
               <button
                 title="My Orders"
-                onClick={ogHome}
+                onClick={goHome}
                 className="w-full flex my-2 md:px-5 md:pr-20  items-center text-white py-3 rounded-l-lg hover:shadow-md relative hover:text-textPrimary dashboardLink hover:bg-white"
               >
                 <AiFillBackward className="ml-3 text-xl" />{" "}

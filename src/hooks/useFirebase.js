@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
-    createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup,
-    signOut, updateProfile
+  createUserWithEmailAndPassword, getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup,
+  signOut, updateProfile
 } from "firebase/auth";
 import { useEffect, useState } from "react";
 
@@ -14,11 +14,10 @@ const useFirebase = () => {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/users/isAdmin/${user.email}`).then((res) => {
+    axios.get(`https://murmuring-brushlands-95266.herokuapp.com/users/isAdmin/${user.email}`).then((res) => {
       setAdmin(res.data.admin);
     });
   }, [user.email]);
-
 
 
   // User Login With Google
@@ -29,8 +28,8 @@ const useFirebase = () => {
       .then((result) => {
         setUser(result);
         const user = result.user;
-        const newUser = {email:user.email, displayName:user.displayName, photoURL:user.photoURL}
-        
+        const newUser = { email: user.email, displayName: user.displayName, photoURL: user.photoURL }
+
         saveUser(newUser, 'PUT');
         // alert('User Added Successfully! ');
         setUser(newUser);
@@ -38,7 +37,7 @@ const useFirebase = () => {
       .catch((err) => console.log(err))
       .finally(() => {
         setIsLoading(false);
-        
+
       });
   };
 
@@ -48,10 +47,10 @@ const useFirebase = () => {
     setIsLoading(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then((result) => {
-        const newUser = { email, displayName: name, photoURL:"https://i.ibb.co/fScLdY0/pic-1171831236-1.png" };
-        
-        updateProfile(auth.currentUser, { displayName: name, photoURL:"https://i.ibb.co/fScLdY0/pic-1171831236-1.png" }).then().catch();
-        
+        const newUser = { email, displayName: name, photoURL: "https://i.ibb.co/fScLdY0/pic-1171831236-1.png" };
+
+        updateProfile(auth.currentUser, { displayName: name, photoURL: "https://i.ibb.co/fScLdY0/pic-1171831236-1.png" }).then().catch();
+
         saveUser(newUser, 'POST');
 
         // alert('User Added Successfully! ');
@@ -59,9 +58,9 @@ const useFirebase = () => {
       })
       .catch((err) => alert(err.message))
       .finally(() => {
-        
+
         setIsLoading(false);
-        
+
       });
   };
 
@@ -82,8 +81,6 @@ const useFirebase = () => {
       });
   };
 
-
-
   // User Logout
   const logOut = () => {
     setIsLoading(true);
@@ -96,29 +93,29 @@ const useFirebase = () => {
       })
       .finally(() => {
         setIsLoading(false);
-        
+
       });
   };
 
-  const saveUser = (newUser,method) => {
+  const saveUser = (newUser, method) => {
     if (method === 'POST') {
       axios
-      .post("http://localhost:5000/users", newUser)
-      .then((res) => {
-        if (res.data.insertedId) {
-          console.log(res);
-        }
-      });
+        .post("https://murmuring-brushlands-95266.herokuapp.com/users", newUser)
+        .then((res) => {
+          if (res.data.insertedId) {
+            console.log(res);
+          }
+        });
     } else {
       axios
-      .put("http://localhost:5000/users", newUser)
-      .then((res) => {
-        if (res.data.insertedId) {
-          console.log(res);
-        }
-      });
+        .put("https://murmuring-brushlands-95266.herokuapp.com/users", newUser)
+        .then((res) => {
+          if (res.data.insertedId) {
+            console.log(res);
+          }
+        });
     }
-    
+
   };
 
   // User Observer
@@ -134,7 +131,6 @@ const useFirebase = () => {
 
     return () => unsubscribe;
   }, [auth]);
-
 
 
   return {

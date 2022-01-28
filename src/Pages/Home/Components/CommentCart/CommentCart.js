@@ -25,7 +25,7 @@ export default function CommentCart(props) {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:5000/comments`)
+            .get(`https://murmuring-brushlands-95266.herokuapp.com/comments`)
             .then((res) => {
                 setComments(res.data.comments.reverse());
                 setCommentIsLoading(false);
@@ -52,7 +52,7 @@ export default function CommentCart(props) {
         data.timestamp = moment(new Date()).format('DD/MM/YYYY, h:mm:ss a')
         console.log(data);
         axios
-            .post("http://localhost:5000/comment", data)
+            .post("https://murmuring-brushlands-95266.herokuapp.com/comment", data)
             .then((res) => {
 
                 if (res.data.insertedId) {
@@ -72,13 +72,13 @@ export default function CommentCart(props) {
         <div className='text-left my-0 pl-12 py-5'>
             <div className='flex items-start'>
                 <img className='w-10 rounded-full border-2 border-gray-300 mr-2 shadow-sm' src={imgUrl} alt="name" />
-                <div className='w-full'> 
+                <div className='w-full'>
                     <div className='bg-gray-100 px-5 rounded-xl rounded-tl-none py-2 shadow-md'>
                         <h1 className='font-medium my-0 py-0'>{name}</h1>
                         <span className='text-gray-400 text-xs my-0 py-0'>{timestamp}</span>
                         <p className=' mt-0'>{commentText}</p>
                     </div>
-                    
+
                     <div className='w-1/12 ml-5 mt-2 flex justify-between'>
                         <button title='replay' className='text-textPrimary text-xs font-semibold mr-5' onClick={toggleReplay}>
                             Replay
